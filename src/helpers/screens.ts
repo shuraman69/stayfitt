@@ -1,1 +1,2 @@
+export const AUTH_STACK_SCREEN = 'AUTH_STACK_SCREEN'
 export const AUTH_SCREEN = 'AUTH_SCREEN'
