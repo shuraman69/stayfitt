@@ -1,4 +1,4 @@
-import {StyleSheet, TextInput, TextInputIOSProps, View} from "react-native";
+import {StyleSheet, TextInput, TextInputIOSProps, View, ViewStyle} from "react-native";
 import {windowWidth} from "../../../helpers/constants";
 import {FC} from "react";
 import {APP_GRAY, PLACEHOLDER_WHITE} from "../../../helpers/colors";
@@ -8,27 +8,34 @@ interface InputI {
  onChange: (value: string, name: string) => void
  value: string
  name: string
+ containerStyles?: ViewStyle
+ secureText?: boolean
  type?: TextInputIOSProps['textContentType']
 }
 
 export const Input: FC<InputI> = (
  {
   placeholder = '',
-  type = 'text',
+  containerStyles,
+  children,
+  type = 'none',
   onChange,
+  secureText = false,
   value,
   name
  }) => {
  return (
-  <View style={styles.container}>
+  <View style={[styles.container, containerStyles]}>
    <TextInput
     value={value}
-    textContentType='password'
+    textContentType={type}
     onChangeText={(nextValue) => onChange(nextValue, name)}
     placeholder={placeholder}
+    secureTextEntry={secureText}
     placeholderTextColor={PLACEHOLDER_WHITE}
     style={styles.input}
    />
+   {children}
   </View>
  )
 }
