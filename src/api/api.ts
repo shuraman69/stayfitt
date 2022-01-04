@@ -1,61 +1,60 @@
-import axios, {AxiosInstance, AxiosRequestConfig, AxiosResponse} from 'axios'
-import {store} from '../redux/store'
+// instance
+import axios, {AxiosResponse} from "axios";
+import {store} from "../redux/store";
 
-class HttpInstance {
- config = {}
- successStatuses = [200, 204]
- // @ts-ignore
- instance: AxiosInstance
-
- constructor(config: AxiosRequestConfig) {
-  this.config = config
-  this.init()
- }
-
- init() {
-  this.instance = axios.create(this.config)
+const successStatuses = [200, 201, 204]
+type ResponseType = {
+ data: any
+ status: number
+}
+export const instance = axios.create({
+ baseURL: 'https://inskill-dev.ru/',
+})
+export const getUserToken = () => {
+ return store.getState().user.token
+}
+export const getHeaderWithToken = () => {
+ return {
+  headers: {
+   Authorization: `Bearer ${getUserToken()}`,
+  },
  }
 }
-
-class Http extends HttpInstance {
- constructor(config: AxiosRequestConfig) {
-  super(config)
+const checkResponse = async (res: AxiosResponse): Promise<ResponseType> => {
+ if (successStatuses.includes(res.status)) {
+  return {
+   data: res.data && res.data,
+   status: res.status,
+  }
  }
-
- checkResponse(result: AxiosResponse) {
-  // if (this.successStatuses.includes(result.status) && result.data) {
-  //  if (Array.isArray(result.data.data)) {
-  //   return renderItems(result.data)
-  //  } else {
-  //   return {data: result.data.data, formatData: renderItems(result.data)}
-  //  }
-  // } else {
-  //  if (result.data?.[0]?.meta?.show) {
-  //   return store.dispatch(setError({data: result.data}))
-  //  }
-  //  if (result.status === 500) {
-  //   return store.dispatch(setGlobalError({data: true}))
-  //  }
-  //  return result
-  // }
-  return result
- }
-
- async get(url: string, config?: AxiosRequestConfig): Promise<AxiosResponse> {
-  return this.checkResponse(await this.instance.get(url, config))
- }
-
- async post(url: string, data?: any, config?: AxiosRequestConfig): Promise<AxiosResponse> {
-  return this.checkResponse(await this.instance.post(url, data, config))
- }
-
- async put(url: string, data?: any, config?: AxiosRequestConfig): Promise<AxiosResponse> {
-  return this.checkResponse(await this.instance.put(url, data, config))
- }
-
- async delete(url: string, config?: AxiosRequestConfig): Promise<AxiosResponse> {
-  return this.checkResponse(await this.instance.delete(url, config))
- }
+ /* eslint-disable-next-line */
+ throw Error()
 }
-
-export default Http
+export const httpBuilder = async (
+ url: string,
+ type: 'get' | 'post' | 'put' | 'delete',
+ params?: any
+): Promise<ResponseType> => {
+ const methods = {
+  get: () =>
+   instance
+    .get(url, {params, ...getHeaderWithToken()})
+    .then((res) => checkResponse(res)),
+  post: () =>
+   instance
+    .post(url, params, getHeaderWithToken())
+    .then((res) => checkResponse(res)),
+  put: () =>
+   instance
+    .put(url, params, getHeaderWithToken())
+    .then((res) => checkResponse(res)),
+  delete: () =>
+   instance
+    .delete(url, {
+     data: params,
+     ...getHeaderWithToken(),
+    })
+    .then((res) => checkResponse(res)),
+ }
+ return await methods[type]()
+}

@@ -1,10 +1,7 @@
-import {http} from './apiconfig'
+import {httpBuilder} from "./api";
 
-class userAPI {
+export const userAPI = {
  async token(data: any) {
-  return await http.post('oauth/token', {data})
+  return httpBuilder('oauth/token', 'post', data)
  }
 }
-
-
-export default new userAPI()

@@ -22,7 +22,7 @@ type AuthFieldsType = {
 
 export const AUTH_FIELDS :AuthFieldsType= {
  EMAIL: {
-  name: 'email',
+  name: 'username',
   validate: true,
   placeholder: 'Ваша почта',
   type: 'none',

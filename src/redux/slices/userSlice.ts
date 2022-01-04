@@ -1,18 +1,23 @@
 import {createSlice} from '@reduxjs/toolkit'
 
-type actionPropType = ''
 
 interface InitialStateI {
+ token: string | null
 }
 
 const initialState: InitialStateI = {
+ token: null
 }
 const userSlice = createSlice({
   name: 'user',
   initialState,
-  reducers: {}
+  reducers: {
+   setToken(state, action) {
+    state.token = action.payload.data
+   }
+  }
  }
 )
 
 export default userSlice.reducer
-export const {} = userSlice.actions
+export const {setToken} = userSlice.actions
