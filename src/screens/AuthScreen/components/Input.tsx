@@ -1,4 +1,4 @@
-import {StyleSheet, TextInput, TextInputIOSProps, View, ViewStyle} from "react-native";
+import {StyleSheet, Text, TextInput, TextInputIOSProps, View, ViewStyle} from "react-native";
 import {windowWidth} from "../../../helpers/constants";
 import {FC} from "react";
 import {APP_GRAY, PLACEHOLDER_WHITE} from "../../../helpers/colors";
@@ -35,7 +35,9 @@ export const Input: FC<InputI> = (
     placeholderTextColor={PLACEHOLDER_WHITE}
     style={styles.input}
    />
-   {children}
+   <View style={styles.icon}>
+    {children}
+   </View>
   </View>
  )
 }
@@ -47,8 +49,14 @@ const styles = StyleSheet.create({
  input: {
   height: 46,
   width: windowWidth,
+  maxWidth: windowWidth * 90 / 100,
   backgroundColor: 'rgba(255, 255, 255, 0.08)',
   borderRadius: 8,
   padding: 12
+ },
+ icon: {
+  position: "absolute",
+  top: 0,
+  right: 0
  }
 })
