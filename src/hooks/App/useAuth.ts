@@ -10,7 +10,6 @@ export const useAuth = () => {
  const {stopLoad, load} = useLoad()
  const token = useAppSelector(state => state.user.token)
  const isAuth = !!token
-
  const saveToken = async () => {
   const accessToken = await getTokenAsync()
   await dispatch(setToken({data: accessToken}))
