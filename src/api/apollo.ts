@@ -9,12 +9,11 @@ export const CHALLENGES = gql`
           node {
             title
             id
-            goal
-            goalUnits
-            startDate
+            bonusPoints
+            pivot {
+              progress
+            }
             endDate
-            type
-            globalProgress
             media {
               full_url
             }
@@ -28,10 +27,11 @@ export const CHALLENGES = gql`
             id
             goal
             goalUnits
-            startDate
+            bonusPoints
+            pivot {
+              progress
+            }
             endDate
-            type
-            globalProgress
             media {
               full_url
             }

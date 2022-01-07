@@ -3,12 +3,13 @@ import {EXPO_CONSOLE_METHOD_NAME} from "expo/build/logs/LogSerialization";
 export interface ChallengeI {
  title: string
  id: string
- goal: number
- goalUnits: string
- startDate: string
- endDates: string
+ bonusPoints:number
+ endDate: string
  type: string
  globalProgress: number
+ pivot: {
+  progress: number
+ }
  media: {
   full_url: string
  }[]
