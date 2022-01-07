@@ -1,6 +1,7 @@
 export const TOXIC_GREEN = '#DCF763'
 export const WHITE = '#fff'
 export const APP_GRAY = '#1F1F1F'
+export const APP_GRAY_2 = '#AEAEB2'
 export const BLACK = '#000'
 export const ICON_GRAY = '#757575'
 export const APP_BLACK= '#282828'
