@@ -1,7 +1,7 @@
-import {httpBuilder} from "./api";
+import { httpBuilder } from './api'
 
 export const userAPI = {
- async token(data: any) {
-  return httpBuilder('oauth/token', 'post', data)
- }
+  async token(data: any) {
+    return httpBuilder('oauth/token', 'post', data)
+  },
 }
