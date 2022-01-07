@@ -6,12 +6,26 @@ import {AuthStackScreen} from "./src/stacks/AuthStack";
 import {Provider} from "react-redux";
 import {store} from "./src/redux/store";
 import {AppContainer} from "./src/components/AppContainer";
+import {ApolloClient, ApolloProvider, InMemoryCache} from "@apollo/client";
+import {getHeaderWithToken, getUserToken} from "./src/api/api";
+
+
+const client = new ApolloClient({
+ uri: 'https://56.inskill-dev.ru/api/graphql',
+ cache: new InMemoryCache(),
+ headers: {
+  Authorization: `Bearer ${getUserToken()}`
+ }
+});
+
 
 export default function App() {
  return (
-  <Provider store={store}>
-   <AppContainer/>
-  </Provider>
+   <Provider store={store}>
+  <ApolloProvider client={client}>
+    <AppContainer/>
+  </ApolloProvider>
+   </Provider>
  );
 }
 
