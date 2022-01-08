@@ -34,13 +34,3 @@ export const AppContainer = () => {
     </NavigationContainer>
   )
 }
-
-const Al = () => {
-  const dispatch = useAppDispatch()
-  const logout = () => dispatch(userThunks.logout())
-  return (
-    <Pressable style={{ marginTop: 100 }} onPress={logout}>
-      <Text>dsajdlasj</Text>
-    </Pressable>
-  )
-}

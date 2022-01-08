@@ -1,4 +1,5 @@
-import { gql } from '@apollo/client'
+import { ApolloClient, gql, InMemoryCache } from '@apollo/client'
+import { getUserToken } from './api'
 
 export const CHALLENGES = gql`
   {
