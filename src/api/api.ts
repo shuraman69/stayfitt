@@ -1,6 +1,7 @@
 // instance
 import axios, { AxiosResponse } from 'axios'
 import { store } from '../redux/store'
+import { LOCATION } from '../helpers/constants'
 
 const successStatuses = [200, 201, 204]
 type ResponseType = {
@@ -8,7 +9,7 @@ type ResponseType = {
   status: number
 }
 export const instance = axios.create({
-  baseURL: 'https://inskill-dev.ru/',
+  baseURL: LOCATION.api,
 })
 export const getUserToken = () => {
   return store.getState().user.token

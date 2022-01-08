@@ -1,9 +1,8 @@
 import {Text, View} from "react-native";
-import {APP_BLACK, APP_GRAY, BLACK, WHITE} from "../../../helpers/colors";
+import {BLACK, WHITE} from "../../../helpers/colors";
 import {Button} from "../../AuthScreen/components/Button";
 import {useAppDispatch} from "../../../redux/store";
 import {setToken} from "../../../redux/slices/userSlice";
-import {windowWidth} from "../../../helpers/constants";
 
 export const EmptyScreen = () => {
  const dispatch = useAppDispatch()
